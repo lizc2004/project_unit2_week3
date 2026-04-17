@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dettaglio prodotto - Diano Casalinghi</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="./index.html">
+          <img src="./asset/Logo.jpg" alt="Logo Diano Casalinghi" class="brand-logo" />
+          <div>
+            <span class="fw-bold d-block brand-name">Diano Casalinghi</span>
+            <small class="text-secondary">Dettaglio prodotto</small>
+          </div>
+        </a>
+        <div class="ms-auto d-flex gap-2">
+          <a href="./index.html" class="btn btn-outline-dark rounded-pill">Torna allo shop</a>
+          <a href="./backoffice.html" class="btn btn-outline-dark rounded-pill">Backoffice</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="py-5">
+      <div class="container">
+        <div id="detail-alert"></div>
+
+        <div id="detail-loader" class="text-center py-5">
+          <div class="spinner-border" role="status" aria-hidden="true"></div>
+          <p class="mt-3 text-secondary mb-0">Caricamento dettaglio prodotto...</p>
+        </div>
+
+        <article id="detail-content" class="d-none"></article>
+      </div>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./config.js"></script>
+    <script src="./dettaglio.js"></script>
+  </body>
+</html>

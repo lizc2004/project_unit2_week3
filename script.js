@@ -6,6 +6,7 @@ const state = {
 
 const productsRow = document.getElementById("products-row");
 const loader = document.getElementById("loader");
+const titleLoader = document.getElementById("title-loader");
 const resultsText = document.getElementById("results-text");
 const alertBox = document.getElementById("alert-box");
 const searchInput = document.getElementById("search-input");
@@ -83,7 +84,14 @@ function renderProducts(products) {
     .map(
       (product) => `
         <div class="col-md-6 col-xl-4">
-          <article class="card product-card">
+          <article
+            class="card product-card clickable-card"
+            data-action="open-detail"
+            data-id="${product._id}"
+            role="link"
+            tabindex="0"
+            aria-label="Vedi dettaglio di ${product.name}"
+          >
             <img
               src="${product.imageUrl}"
               class="card-img-top"
@@ -99,9 +107,6 @@ function renderProducts(products) {
               <div class="d-flex justify-content-between align-items-center mt-3">
                 <span class="price-tag">${formatPrice(product.price)}</span>
                 <div class="d-flex gap-2 flex-wrap">
-                  <button class="btn btn-outline-dark rounded-pill" data-action="details" data-id="${product._id}">
-                    Dettagli
-                  </button>
                   <button class="btn btn-outline-secondary rounded-pill" data-action="edit" data-id="${product._id}">
                     Modifica
                   </button>
@@ -220,13 +225,47 @@ function openProductModal(productId) {
   productModal.show();
 }
 
+function describeHttpError(status) {
+  if (status === 401)
+    return {
+      type: "warning",
+      message: "Token API mancante o scaduto. Aggiorna la chiave in config.js.",
+    };
+  if (status === 403)
+    return {
+      type: "danger",
+      message: "Accesso negato: il tuo token non ha i permessi necessari.",
+    };
+  if (status === 404)
+    return {
+      type: "warning",
+      message: "Risorsa non trovata sulla API (404).",
+    };
+  if (status === 429)
+    return {
+      type: "warning",
+      message: "Troppe richieste. Attendi qualche secondo e riprova.",
+    };
+  if (status >= 500)
+    return {
+      type: "danger",
+      message: `Errore del server Strive (${status}). Riprova piu tardi.`,
+    };
+  return {
+    type: "danger",
+    message: `Errore API imprevisto (${status}).`,
+  };
+}
+
 async function fetchProducts() {
   loader.classList.remove("d-none");
+  if (titleLoader) titleLoader.classList.remove("d-none");
   productsRow.classList.add("d-none");
   alertBox.innerHTML = "";
 
   if (!API_CONFIG.token) {
     loader.classList.add("d-none");
+    if (titleLoader) titleLoader.classList.add("d-none");
     state.products = [];
     applyFilters();
     showAlert(
@@ -242,7 +281,11 @@ async function fetchProducts() {
     });
 
     if (!response.ok) {
-      throw new Error(`Errore API: ${response.status}`);
+      const info = describeHttpError(response.status);
+      state.products = [];
+      applyFilters();
+      showAlert(info.message, info.type);
+      return;
     }
 
     const products = await response.json();
@@ -253,24 +296,52 @@ async function fetchProducts() {
   } catch (error) {
     state.products = [];
     applyFilters();
-    showAlert("Non sono riuscito a leggere la API. Controlla token ed endpoint.", "danger");
+    if (error instanceof TypeError) {
+      showAlert(
+        "Impossibile raggiungere la API. Controlla la connessione internet.",
+        "danger"
+      );
+    } else {
+      showAlert("Errore inatteso durante il caricamento del catalogo.", "danger");
+    }
     console.error(error);
   } finally {
     loader.classList.add("d-none");
+    if (titleLoader) titleLoader.classList.add("d-none");
   }
 }
 
 productsRow.addEventListener("click", (event) => {
   const button = event.target.closest("button");
-  if (!button) return;
 
-  const action = button.dataset.action;
-  const productId = button.dataset.id;
+  if (button) {
+    event.stopPropagation();
+    const action = button.dataset.action;
+    const productId = button.dataset.id;
 
-  if (action === "add-to-cart") addToCart(productId);
-  if (action === "details") openProductModal(productId);
-  if (action === "edit") {
-    window.location.href = `./backoffice.html?id=${encodeURIComponent(productId)}`;
+    if (action === "add-to-cart") addToCart(productId);
+    if (action === "edit") {
+      window.location.href = `./backoffice.html?id=${encodeURIComponent(productId)}`;
+    }
+    return;
+  }
+
+  const card = event.target.closest(".clickable-card");
+  if (!card) return;
+  const productId = card.dataset.id;
+  if (productId) {
+    window.location.href = `./dettaglio.html?id=${encodeURIComponent(productId)}`;
+  }
+});
+
+productsRow.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const card = event.target.closest(".clickable-card");
+  if (!card) return;
+  event.preventDefault();
+  const productId = card.dataset.id;
+  if (productId) {
+    window.location.href = `./dettaglio.html?id=${encodeURIComponent(productId)}`;
   }
 });
 

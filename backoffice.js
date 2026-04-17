@@ -22,7 +22,7 @@ const productPresets = {
     brand: "Giardino",
     price: 199.99,
     imageUrl:
-      "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1200&q=80",
+      "https://pplx-res.cloudinary.com/image/upload/pplx_search_images/1ff95d799d158182474e01b4abd2ef443014205c.jpg",
   },
   "beach-bed": {
     name: "Lettino da mare",
@@ -38,7 +38,7 @@ const productPresets = {
     brand: "Relax",
     price: 39.9,
     imageUrl:
-      "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=1200&q=80",
+      "https://pplx-res.cloudinary.com/image/upload/pplx_search_images/42fa9bfdf197f94c7e28374460c45354db48aaaf.jpg",
   },
   kayak: {
     name: "Kayak gonfiabile estivo",
@@ -46,10 +46,9 @@ const productPresets = {
     brand: "Mare",
     price: 149.99,
     imageUrl:
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80",
+      "https://pplx-res.cloudinary.com/image/upload/pplx_search_images/e603b02109ce473fba5ca975999a04b1033ef4eb.jpg",
   },
 };
-
 function showBackofficeAlert(message, type = "warning") {
   backofficeAlert.innerHTML = `
     <div class="alert alert-${type} alert-dismissible fade show" role="alert">
@@ -57,6 +56,60 @@ function showBackofficeAlert(message, type = "warning") {
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Chiudi"></button>
     </div>
   `;
+}
+
+function describeHttpError(status, context) {
+  if (status === 400)
+    return {
+      type: "warning",
+      message: `Dati non validi: controlla di aver compilato correttamente tutti i campi (${context}).`,
+    };
+  if (status === 401)
+    return {
+      type: "warning",
+      message: "Token API mancante o scaduto. Aggiorna la chiave in config.js.",
+    };
+  if (status === 403)
+    return {
+      type: "danger",
+      message: "Accesso negato: il tuo token non ha i permessi necessari.",
+    };
+  if (status === 404)
+    return {
+      type: "warning",
+      message: `Prodotto non trovato (${context}). Potrebbe essere stato gia eliminato.`,
+    };
+  if (status === 409)
+    return {
+      type: "warning",
+      message: "Conflitto: esiste gia una risorsa con questi dati.",
+    };
+  if (status === 429)
+    return {
+      type: "warning",
+      message: "Troppe richieste in poco tempo. Attendi qualche secondo.",
+    };
+  if (status >= 500)
+    return {
+      type: "danger",
+      message: `Errore del server Strive (${status}). Riprova piu tardi.`,
+    };
+  return {
+    type: "danger",
+    message: `Errore inatteso (${status}) durante l'operazione ${context}.`,
+  };
+}
+
+function handleNetworkError(error, context) {
+  console.error(context, error);
+  if (error instanceof TypeError) {
+    showBackofficeAlert(
+      `Impossibile raggiungere la API (${context}). Controlla la connessione internet.`,
+      "danger"
+    );
+  } else {
+    showBackofficeAlert(`Errore inatteso durante l'operazione ${context}.`, "danger");
+  }
 }
 
 function resetForm() {
@@ -164,7 +217,11 @@ async function fetchProducts() {
     });
 
     if (!response.ok) {
-      throw new Error(`Errore API: ${response.status}`);
+      const info = describeHttpError(response.status, "lettura catalogo");
+      products = [];
+      renderTable();
+      showBackofficeAlert(info.message, info.type);
+      return;
     }
 
     products = await response.json();
@@ -173,8 +230,7 @@ async function fetchProducts() {
   } catch (error) {
     products = [];
     renderTable();
-    showBackofficeAlert("Non sono riuscito a caricare i prodotti dalla API.", "danger");
-    console.error(error);
+    handleNetworkError(error, "lettura catalogo");
   }
 }
 
@@ -206,7 +262,12 @@ async function saveProduct(event) {
     });
 
     if (!response.ok) {
-      throw new Error(`Errore salvataggio: ${response.status}`);
+      const info = describeHttpError(
+        response.status,
+        isEditing ? "aggiornamento prodotto" : "creazione prodotto"
+      );
+      showBackofficeAlert(info.message, info.type);
+      return;
     }
 
     resetForm();
@@ -216,8 +277,7 @@ async function saveProduct(event) {
       "success"
     );
   } catch (error) {
-    showBackofficeAlert("Non sono riuscito a salvare il prodotto. Controlla i campi.", "danger");
-    console.error(error);
+    handleNetworkError(error, isEditing ? "aggiornamento prodotto" : "creazione prodotto");
   }
 }
 
@@ -237,14 +297,15 @@ async function deleteProduct(productId) {
     });
 
     if (!response.ok) {
-      throw new Error(`Errore eliminazione: ${response.status}`);
+      const info = describeHttpError(response.status, "eliminazione prodotto");
+      showBackofficeAlert(info.message, info.type);
+      return;
     }
 
     await fetchProducts();
     showBackofficeAlert("Prodotto eliminato correttamente.", "success");
   } catch (error) {
-    showBackofficeAlert("Non sono riuscito a eliminare il prodotto.", "danger");
-    console.error(error);
+    handleNetworkError(error, "eliminazione prodotto");
   }
 }
 
