@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diano Casalinghi</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="#">
+          <img src="./asset/Logo.jpg" alt="Logo Diano Casalinghi" class="brand-logo" />
+          <div>
+            <span class="fw-bold d-block brand-name">Diano Casalinghi</span>
+            <small class="text-secondary">Estate, relax e outdoor</small>
+          </div>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Apri navigazione"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item">
+              <a class="nav-link" href="#nuovi-arrivi">Novità s</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#prodotti">Collezione</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#chi-siamo">Chi siamo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./backoffice.html">Backoffice</a>
+            </li>
+            <li class="nav-item">
+              <button
+                class="btn btn-dark rounded-pill px-3"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#cartCanvas"
+                aria-controls="cartCanvas"
+              >
+                Carrello <span id="cart-count" class="badge text-bg-light ms-1">0</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero-section">
+      <div class="container py-5">
+        <div class="row align-items-center g-4 py-lg-5">
+          <div class="col-lg-6">
+            <span class="eyebrow">Collezione mare e all'aperto</span>
+            <h1 class="display-4 fw-bold mt-3">
+              Scopri la nostra selezione estate per giardino, terrazza e tempo libero.
+            </h1>
+            <p class="lead text-secondary mt-3">
+              Una vetrina digitale responsive costruita con Bootstrap, pensata per mostrare i tuoi
+              prodotti reali con immagini locali e collegamento alla API di Strive.
+            </p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+              <a class="btn btn-dark btn-lg rounded-pill px-4" href="#prodotti">Scopri la collezione</a>
+              <button class="btn btn-outline-dark btn-lg rounded-pill px-4" id="reload-products-btn">
+                Ricarica catalogo
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-card shadow-sm">
+              <p class="text-uppercase small fw-semibold text-secondary mb-2">Cosa mostra il progetto</p>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-3">Bootstrap per layout responsive e componenti.</li>
+                <li class="mb-3">Fetch + async/await per leggere i prodotti dalla API.</li>
+                <li class="mb-3">Ricerca e filtro categoria in tempo reale.</li>
+                <li>Carrello e token API salvati in localStorage.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="api-config" class="py-5 border-top api-section">
+        <div class="container">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+              <h2 class="mb-2">Inserisci la tua chiave API</h2>
+              <p class="text-secondary mb-0">
+                
+              </p>
+            </div>
+            <div class="col-lg-6">
+              <div class="api-card">
+                <label for="api-token-input" class="form-label fw-semibold">Token API Strive</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    id="api-token-input"
+                    class="form-control"
+                    placeholder="Incolla qui la tua chiave API"
+                  />
+                  <button class="btn btn-dark" type="button" id="save-api-token-btn">Salva token</button>
+                </div>
+                <p class="small text-secondary mb-0 mt-3">
+                  Il token viene salvato nel browser con <code>localStorage</code>, cosi puoi
+                  riutilizzarlo senza riscriverlo ogni volta.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5 border-top">
+        <div class="container">
+          <div class="row g-3 align-items-end">
+            <div class="col-lg-7">
+              <label for="search-input" class="form-label fw-semibold">Cerca un prodotto</label>
+              <input
+                type="search"
+                id="search-input"
+                class="form-control form-control-lg"
+                placeholder="Es. giardino, kayak, mare, relax..."
+              />
+            </div>
+            <div class="col-lg-5">
+              <label for="category-select" class="form-label fw-semibold">Categoria</label>
+              <select id="category-select" class="form-select form-select-lg">
+                <option value="all">Tutte le categorie</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="prodotti" class="pb-5">
+        <div class="container">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div>
+              <h2 class="mb-1">Scopri la nostra collezione mare e all'aperto</h2>
+              <p class="text-secondary mb-0" id="results-text">Sto preparando il catalogo...</p>
+            </div>
+          </div>
+
+          <div id="alert-box"></div>
+
+          <div id="loader" class="text-center py-5">
+            <div class="spinner-border" role="status" aria-hidden="true"></div>
+            <p class="mt-3 text-secondary mb-0">Caricamento prodotti...</p>
+          </div>
+
+          <div class="row g-4 d-none" id="products-row"></div>
+        </div>
+      </section>
+
+      <section id="chi-siamo" class="py-5 bg-body-tertiary border-top">
+        <div class="container">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+              <h2>Un'unica pagina, come richiesto</h2>
+              <p class="text-secondary mb-0">
+                Questo progetto resta tutto in un solo HTML principale, ma include gia una struttura
+                completa: hero, collegamento API, catalogo, dettaglio prodotto e carrello.
+              </p>
+            </div>
+            <div class="col-lg-6">
+              <div class="info-box p-4 rounded-4">
+                <p class="fw-semibold mb-2">Per completarlo</p>
+                <ol class="mb-0">
+                  <li>Registrati alla piattaforma Strive APIs.</li>
+                  <li>Recupera il token personale.</li>
+                  <li>Incollalo nel box in alto.</li>
+                  <li>Usa la API per leggere i prodotti reali del tuo shop.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="cartCanvas"
+      aria-labelledby="cartCanvasLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="cartCanvasLabel">Il tuo carrello</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column">
+        <div id="cart-items" class="flex-grow-1"></div>
+        <div class="border-top pt-3 mt-3">
+          <p class="d-flex justify-content-between fw-semibold">
+            <span>Totale</span>
+            <span id="cart-total">0,00 €</span>
+          </p>
+          <button class="btn btn-dark w-100 rounded-pill" id="clear-cart-btn">Svuota carrello</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel">Dettaglio prodotto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+          </div>
+          <div class="modal-body" id="modal-body-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
