@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diano Casalinghi</title>
+    <title>Diano Casalinghi – Arredi e accessori per casa, giardino e mare</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,131 +13,172 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
-      <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-3" href="#">
-          <img src="./asset/Logo.jpg" alt="Logo Diano Casalinghi" class="brand-logo" />
-          <div>
-            <span class="fw-bold d-block brand-name">Diano Casalinghi</span>
-            <small class="text-secondary">Estate, relax e outdoor</small>
-          </div>
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNavbar"
-          aria-controls="mainNavbar"
-          aria-expanded="false"
-          aria-label="Apri navigazione"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNavbar">
-          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-            <li class="nav-item">
-              <a class="nav-link" href="#nuovi-arrivi">Novità s</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#prodotti">Collezione</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#chi-siamo">Chi siamo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./backoffice.html">Backoffice</a>
-            </li>
-            <li class="nav-item">
-              <button
-                class="btn btn-dark rounded-pill px-3"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#cartCanvas"
-                aria-controls="cartCanvas"
-              >
-                Carrello <span id="cart-count" class="badge text-bg-light ms-1">0</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <header class="hero-section">
-      <div class="container py-5">
-        <div class="row align-items-center g-4 py-lg-5">
-          <div class="col-lg-6">
-            <span class="eyebrow">Collezione mare e all'aperto</span>
-            <h1 class="display-4 fw-bold mt-3 d-flex align-items-center gap-3 flex-wrap">
-              <span>Scopri la nostra selezione estate per giardino, terrazza e tempo libero.</span>
-              <span
-                id="title-loader"
-                class="spinner-border spinner-border-sm text-secondary d-none"
-                role="status"
-                aria-label="Caricamento prodotti"
-              ></span>
-            </h1>
-            <p class="lead text-secondary mt-3">
-              Una vetrina digitale responsive costruita con Bootstrap, pensata per mostrare i tuoi
-              prodotti reali con immagini locali e collegamento alla API di Strive.
-            </p>
-            <div class="d-flex flex-wrap gap-3 mt-4">
-              <a class="btn btn-dark btn-lg rounded-pill px-4" href="#prodotti">Scopri la collezione</a>
-              <button class="btn btn-outline-dark btn-lg rounded-pill px-4" id="reload-products-btn">
-                Ricarica catalogo
-              </button>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom sticky-top">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center gap-3" href="#">
+            <img src="./asset/Logo.jpg" alt="Logo Diano Casalinghi" class="brand-logo" />
+            <div>
+              <span class="fw-bold d-block brand-name">Diano Casalinghi</span>
+              <small class="text-secondary">Casa, giardino e tempo libero</small>
             </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="hero-card shadow-sm">
-              <p class="text-uppercase small fw-semibold text-secondary mb-2">Cosa mostra il progetto</p>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-3">Bootstrap per layout responsive e componenti.</li>
-                <li class="mb-3">Fetch + async/await per leggere i prodotti dalla API.</li>
-                <li class="mb-3">Ricerca e filtro categoria in tempo reale.</li>
-                <li>Carrello e token API salvati in localStorage.</li>
-              </ul>
-            </div>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Apri navigazione"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+              <li class="nav-item">
+                <a class="nav-link" href="#categorie">Collezioni</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#prodotti">Prodotti</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#vantaggi">Perché noi</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contatti">Contatti</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-secondary small" href="./backoffice.html">Backoffice</a>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-dark rounded-pill px-3 d-flex align-items-center gap-2"
+                  type="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#cartCanvas"
+                  aria-controls="cartCanvas"
+                  aria-label="Apri carrello"
+                >
+                  <span aria-hidden="true">🛒</span>
+                  <span>Carrello</span>
+                  <span id="cart-count" class="badge text-bg-light">0</span>
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+      </nav>
     </header>
 
     <main>
-      <section id="api-config" class="py-5 border-top api-section">
-        <div class="container">
-          <div class="row g-4 align-items-center">
+      <section class="hero-section">
+        <div class="container py-5">
+          <div class="row align-items-center g-5 py-lg-4">
             <div class="col-lg-6">
-              <h2 class="mb-2">Inserisci la tua chiave API</h2>
-              <p class="text-secondary mb-0">
-                
+              <span class="eyebrow">Collezione indoor &amp; outdoor</span>
+              <h1 class="display-3 fw-bold mt-3 d-flex align-items-center gap-3 flex-wrap">
+                <span>Vivi meglio i tuoi spazi</span>
+                <span
+                  id="title-loader"
+                  class="spinner-border spinner-border-sm text-secondary d-none"
+                  role="status"
+                  aria-label="Caricamento prodotti"
+                ></span>
+              </h1>
+              <p class="lead text-secondary mt-3 mb-4">
+                Scopri arredi e accessori per casa, terrazza e giardino.
               </p>
+              <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-dark btn-lg rounded-pill px-4" href="#prodotti">
+                  Scopri i prodotti
+                </a>
+                <a class="btn btn-outline-dark btn-lg rounded-pill px-4" href="#categorie">
+                  Esplora le collezioni
+                </a>
+              </div>
+              <div class="hero-strip mt-5">
+                <div>
+                  <strong>Spedizione veloce</strong>
+                  <span class="text-secondary small d-block">In 48 ore in tutta Italia</span>
+                </div>
+                <div>
+                  <strong>Pagamenti sicuri</strong>
+                  <span class="text-secondary small d-block">Carte, PayPal e bonifico</span>
+                </div>
+                <div>
+                  <strong>Resi entro 14 giorni</strong>
+                  <span class="text-secondary small d-block">Cambio facile e rimborso</span>
+                </div>
+              </div>
             </div>
             <div class="col-lg-6">
-              <div class="api-card">
-                <label for="api-token-input" class="form-label fw-semibold">Token API Strive</label>
-                <div class="input-group">
-                  <input
-                    type="password"
-                    id="api-token-input"
-                    class="form-control"
-                    placeholder="Incolla qui la tua chiave API"
-                  />
-                  <button class="btn btn-dark" type="button" id="save-api-token-btn">Salva token</button>
-                </div>
-                <p class="small text-secondary mb-0 mt-3">
-                  Il token viene salvato nel browser con <code>localStorage</code>, cosi puoi
-                  riutilizzarlo senza riscriverlo ogni volta.
-                </p>
+              <div class="hero-image-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1200&q=80"
+                  alt="Ambiente outdoor arredato con tavolo e sedie da giardino"
+                  class="hero-image"
+                  onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Diano+Casalinghi';"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="py-5 border-top">
+      <section id="categorie" class="py-5">
         <div class="container">
-          <div class="row g-3 align-items-end">
+          <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+              <span class="eyebrow">Le nostre collezioni</span>
+              <h2 class="mt-3 mb-0">Trova l'ambiente giusto per te</h2>
+            </div>
+            <a href="#prodotti" class="btn btn-link text-decoration-none p-0">Vedi tutti i prodotti →</a>
+          </div>
+          <div class="row g-4">
+            <div class="col-sm-6 col-lg-3">
+              <a href="#prodotti" class="category-card d-block text-decoration-none">
+                <div class="category-card-image" style="background-image: url('https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=600&q=80');"></div>
+                <h3 class="h5 mt-3 mb-1">Giardino</h3>
+                <p class="text-secondary small mb-0">Tavoli, sedie e arredi da esterno</p>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <a href="#prodotti" class="category-card d-block text-decoration-none">
+                <div class="category-card-image" style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=600&q=80');"></div>
+                <h3 class="h5 mt-3 mb-1">Mare</h3>
+                <p class="text-secondary small mb-0">Accessori per spiaggia e piscina</p>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <a href="#prodotti" class="category-card d-block text-decoration-none">
+                <div class="category-card-image" style="background-image: url('https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=600&q=80');"></div>
+                <h3 class="h5 mt-3 mb-1">Relax</h3>
+                <p class="text-secondary small mb-0">Comfort per balcone e terrazza</p>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <a href="#prodotti" class="category-card d-block text-decoration-none">
+                <div class="category-card-image" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80');"></div>
+                <h3 class="h5 mt-3 mb-1">Outdoor</h3>
+                <p class="text-secondary small mb-0">Sport e tempo libero all'aperto</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="prodotti" class="py-5 bg-body-tertiary border-top">
+        <div class="container">
+          <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+            <div>
+              <span class="eyebrow">Catalogo</span>
+              <h2 class="mt-3 mb-1">Prodotti in evidenza</h2>
+              <p class="text-secondary mb-0" id="results-text">Sto preparando il catalogo...</p>
+            </div>
+          </div>
+
+          <div class="row g-3 align-items-end mb-4">
             <div class="col-lg-7">
               <label for="search-input" class="form-label fw-semibold">Cerca un prodotto</label>
               <input
@@ -154,17 +195,6 @@
               </select>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="prodotti" class="pb-5">
-        <div class="container">
-          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-            <div>
-              <h2 class="mb-1">Scopri la nostra collezione mare e all'aperto</h2>
-              <p class="text-secondary mb-0" id="results-text">Sto preparando il catalogo...</p>
-            </div>
-          </div>
 
           <div id="alert-box"></div>
 
@@ -177,31 +207,93 @@
         </div>
       </section>
 
-      <section id="chi-siamo" class="py-5 bg-body-tertiary border-top">
+      <section id="vantaggi" class="py-5">
         <div class="container">
-          <div class="row g-4 align-items-center">
-            <div class="col-lg-6">
-              <h2>Un'unica pagina, come richiesto</h2>
-              <p class="text-secondary mb-0">
-                Questo progetto resta tutto in un solo HTML principale, ma include gia una struttura
-                completa: hero, collegamento API, catalogo, dettaglio prodotto e carrello.
-              </p>
+          <div class="text-center mb-5">
+            <span class="eyebrow">Perché sceglierci</span>
+            <h2 class="mt-3 mb-0">Perché scegliere Diano Casalinghi</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="benefit-card h-100">
+                <div class="benefit-icon" aria-hidden="true">✦</div>
+                <h3 class="h5 mt-3">Selezione curata</h3>
+                <p class="text-secondary mb-0">
+                  Prodotti scelti con attenzione per durata, design e utilità quotidiana.
+                </p>
+              </div>
             </div>
-            <div class="col-lg-6">
-              <div class="info-box p-4 rounded-4">
-                <p class="fw-semibold mb-2">Per completarlo</p>
-                <ol class="mb-0">
-                  <li>Registrati alla piattaforma Strive APIs.</li>
-                  <li>Recupera il token personale.</li>
-                  <li>Incollalo nel box in alto.</li>
-                  <li>Usa la API per leggere i prodotti reali del tuo shop.</li>
-                </ol>
+            <div class="col-md-4">
+              <div class="benefit-card h-100">
+                <div class="benefit-icon" aria-hidden="true">◎</div>
+                <h3 class="h5 mt-3">Qualità e praticità</h3>
+                <p class="text-secondary mb-0">
+                  Materiali resistenti e soluzioni pensate per semplificarti la vita.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="benefit-card h-100">
+                <div class="benefit-icon" aria-hidden="true">◈</div>
+                <h3 class="h5 mt-3">Idee per indoor e outdoor</h3>
+                <p class="text-secondary mb-0">
+                  Arredi e accessori per ogni ambiente: casa, terrazza, giardino e mare.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
     </main>
+
+    <footer id="contatti" class="site-footer">
+      <div class="container py-5">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img src="./asset/Logo.jpg" alt="Logo Diano Casalinghi" class="brand-logo" />
+              <span class="fw-bold brand-name">Diano Casalinghi</span>
+            </div>
+            <p class="text-secondary mb-0">
+              Arredi, accessori e idee per vivere meglio i tuoi spazi indoor e outdoor.
+            </p>
+          </div>
+          <div class="col-sm-6 col-lg-2">
+            <h3 class="h6 text-uppercase mb-3">Shop</h3>
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2"><a href="#prodotti">Prodotti</a></li>
+              <li class="mb-2"><a href="#categorie">Collezioni</a></li>
+              <li class="mb-2"><a href="#vantaggi">Perché noi</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <h3 class="h6 text-uppercase mb-3">Assistenza</h3>
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">Spedizione gratuita sopra 50€</li>
+              <li class="mb-2">Resi entro 14 giorni</li>
+              <li class="mb-2">Pagamenti sicuri</li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h3 class="h6 text-uppercase mb-3">Contatti</h3>
+            <ul class="list-unstyled mb-0 text-secondary">
+              <li class="mb-2">info@dianocasalinghi.it</li>
+              <li class="mb-2">Via Roma 12, Diano Marina (IM)</li>
+              <li class="mb-2">+39 0183 000 000</li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <p class="mb-0 small text-secondary">© 2026 Diano Casalinghi. Tutti i diritti riservati.</p>
+          <ul class="list-unstyled d-flex gap-3 mb-0 small">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Termini</a></li>
+            <li><a href="#">Cookie</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
 
     <div
       class="offcanvas offcanvas-end"
@@ -221,18 +313,6 @@
             <span id="cart-total">0,00 €</span>
           </p>
           <button class="btn btn-dark w-100 rounded-pill" id="clear-cart-btn">Svuota carrello</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="productModalLabel">Dettaglio prodotto</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
-          </div>
-          <div class="modal-body" id="modal-body-content"></div>
         </div>
       </div>
     </div>

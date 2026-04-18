@@ -17,6 +17,37 @@ body {
     radial-gradient(circle at top right, rgba(255, 183, 3, 0.3), transparent 26%),
     radial-gradient(circle at left center, rgba(93, 183, 222, 0.22), transparent 28%),
     linear-gradient(135deg, var(--cv-sky), #ffffff 68%);
+  overflow: hidden;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 76, 92, 0.18);
+  aspect-ratio: 4 / 3;
+  background-color: rgba(93, 183, 222, 0.12);
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(15, 76, 92, 0.12);
+}
+
+@media (max-width: 575.98px) {
+  .hero-strip {
+    grid-template-columns: 1fr;
+  }
 }
 
 .eyebrow {
@@ -162,4 +193,86 @@ body {
   .product-card img {
     height: 220px;
   }
+}
+
+.category-card {
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.category-card:hover,
+.category-card:focus-visible {
+  transform: translateY(-4px);
+}
+
+.category-card-image {
+  height: 180px;
+  border-radius: 1.25rem;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.category-card h3 {
+  color: var(--cv-deep);
+}
+
+.benefit-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(15, 76, 92, 0.08);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.benefit-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba(93, 183, 222, 0.16);
+  color: var(--cv-deep);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.site-footer {
+  background-color: #0f2a33;
+  color: #d8e4e8;
+}
+
+.site-footer h3 {
+  color: #ffffff;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.site-footer a {
+  color: #d8e4e8;
+  text-decoration: none;
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.site-footer hr {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.site-footer .brand-logo {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.site-footer .brand-name {
+  color: #ffffff;
+}
+
+.site-footer .text-secondary {
+  color: rgba(216, 228, 232, 0.75) !important;
 }

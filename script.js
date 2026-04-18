@@ -15,10 +15,6 @@ const cartItems = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
 const cartCount = document.getElementById("cart-count");
 const clearCartBtn = document.getElementById("clear-cart-btn");
-const reloadProductsBtn = document.getElementById("reload-products-btn");
-const modalBodyContent = document.getElementById("modal-body-content");
-
-const productModal = new bootstrap.Modal(document.getElementById("productModal"));
 
 function normalizeText(value) {
   return String(value || "")
@@ -201,30 +197,6 @@ function removeFromCart(productId) {
   renderCart();
 }
 
-function openProductModal(productId) {
-  const product = state.products.find((item) => item._id === productId);
-  if (!product) return;
-
-  modalBodyContent.innerHTML = `
-    <div class="row g-4 align-items-center">
-      <div class="col-md-6">
-        <img src="${product.imageUrl}" alt="${product.name}" class="modal-product-image" />
-      </div>
-      <div class="col-md-6">
-        <span class="badge rounded-pill mb-3">${getCategoryFromProduct(product)}</span>
-        <h3>${product.name}</h3>
-        <p class="text-secondary">${product.description}</p>
-        <p class="price-tag mb-4">${formatPrice(product.price)}</p>
-        <button class="btn btn-dark rounded-pill px-4" data-action="add-to-cart" data-id="${product._id}">
-          Aggiungi al carrello
-        </button>
-      </div>
-    </div>
-  `;
-
-  productModal.show();
-}
-
 function describeHttpError(status) {
   if (status === 401)
     return {
@@ -345,13 +317,6 @@ productsRow.addEventListener("keydown", (event) => {
   }
 });
 
-modalBodyContent.addEventListener("click", (event) => {
-  const button = event.target.closest("button");
-  if (!button) return;
-
-  if (button.dataset.action === "add-to-cart") addToCart(button.dataset.id);
-});
-
 cartItems.addEventListener("click", (event) => {
   const button = event.target.closest("button");
   if (!button) return;
@@ -361,7 +326,6 @@ cartItems.addEventListener("click", (event) => {
 
 searchInput.addEventListener("input", applyFilters);
 categorySelect.addEventListener("change", applyFilters);
-reloadProductsBtn.addEventListener("click", fetchProducts);
 
 clearCartBtn.addEventListener("click", () => {
   state.cart = [];
